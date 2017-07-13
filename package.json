@@ -1,0 +1,27 @@
+{
+  "name": "soundcloud-to-dat",
+  "version": "0.0.0",
+  "description": "Download all music from a Soundcloud url and put it into a Dat",
+  "main": "index.js",
+  "dependencies": {
+    "dat-storage": "^1.0.3",
+    "hyperdiscovery": "^6.0.4",
+    "hyperdrive": "^9.4.7",
+    "mkdirp": "^0.5.1",
+    "mutexify": "^1.1.0"
+  },
+  "devDependencies": {},
+  "bin": {
+    "soundcloud-to-dat": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/soundcloud-to-dat.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/soundcloud-to-dat/issues"
+  },
+  "homepage": "https://github.com/mafintosh/soundcloud-to-dat"
+}
