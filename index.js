@@ -76,7 +76,10 @@ function done (err) {
     process.exit(1)
     return
   }
-  console.log('Added all music')
+  mutex(function (release) {
+    console.log('Downloaded all music from Soundcloud')
+    release()
+  })
 }
 
 function download (url, onfile, cb) {
