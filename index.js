@@ -6,12 +6,13 @@ var path = require('path')
 var crypto = require('crypto')
 var hyperdrive = require('hyperdrive')
 var mutexify = require('mutexify')
+var mkdirp = require('mkdirp')
 var hyperdiscovery = require('hyperdiscovery')
 
 var dest = process.argv[3] || '.'
 var music = path.join(dest, 'youtube-dl')
 var template = fs.readFileSync(path.join(__dirname, 'index.html'))
-var archive = hyperdrive('dat')
+var archive = hyperdrive(path.join(dest, 'dat'))
 var mutex = mutexify()
 var all = []
 
@@ -79,7 +80,7 @@ function done (err) {
 }
 
 function download (url, onfile, cb) {
-  fs.mkdir(music, function () {
+  mkdirp(music, function () {
     var c = proc.spawn('youtube-dl', [url, '--quiet'], {cwd: music, stdio: 'inherit'})
     var emitted = null
 
