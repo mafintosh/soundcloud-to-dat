@@ -8,6 +8,7 @@ var hyperdrive = require('hyperdrive')
 var mutexify = require('mutexify')
 var mkdirp = require('mkdirp')
 var hyperdiscovery = require('hyperdiscovery')
+var pump = require('pump')
 
 var dest = process.argv[3] || '.'
 var music = path.join(dest, 'youtube-dl')
@@ -60,7 +61,8 @@ function onfile (name) {
   })
 
   mutex(function (release) {
-    fs.createReadStream(path.join(music, name)).pipe(archive.createWriteStream(output)).on('finish', function () {
+    pump(fs.createReadStream(path.join(music, name)), archive.createWriteStream(output), function (err) {
+      if (err) return release()
       archive.writeFile('music.json', JSON.stringify(all, null, 2), function () {
         console.log('Added', name)
         release()
@@ -100,7 +102,7 @@ function download (url, onfile, cb) {
     fs.watch(music, onchange)
 
     function onchange (event, name) {
-      if (!/\.part$/.test(name) && !/\.f\d+\.\w+$/.test(name) && !/\.temp\.\w+$/.test(name)) {
+      if (!/\.part$/.test(name) && !/\.f\d+\.\w+$/.test(name) && !/\.temp\.\w+$/.test(name) && !/\.part-\w+$/.test(name)) {
         if (emitted === name) return
         emitted = name
         onfile(name)
