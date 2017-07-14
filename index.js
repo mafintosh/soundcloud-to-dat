@@ -87,15 +87,20 @@ function download (url, onfile, cb) {
     var c = proc.spawn('youtube-dl', [url, '--quiet'], {cwd: music, stdio: 'inherit'})
     var emitted = null
 
+    process.on('exit', function () {
+      if (c) c.kill()
+    })
+
     c.on('error', cb)
     c.on('exit', function (code) {
+      c = null
       if (code) return cb(new Error('Bad exit code: ' + code))
       cb(null)
     })
     fs.watch(music, onchange)
 
     function onchange (event, name) {
-      if (!/\.part$/.test(name)) {
+      if (!/\.part$/.test(name) && !/\.f\d+\.\w+$/.test(name)) {
         if (emitted === name) return
         emitted = name
         onfile(name)
