@@ -1,6 +1,6 @@
 # soundcloud-to-dat
 
-Download all music from a Soundcloud url and put it into a Dat.
+Download all music from a Soundcloud url and put it into a [Dat](https://datproject.org/).
 
 ```
 npm install -g soundcloud-to-dat
