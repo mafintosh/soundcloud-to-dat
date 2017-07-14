@@ -100,7 +100,7 @@ function download (url, onfile, cb) {
     fs.watch(music, onchange)
 
     function onchange (event, name) {
-      if (!/\.part$/.test(name) && !/\.f\d+\.\w+$/.test(name)) {
+      if (!/\.part$/.test(name) && !/\.f\d+\.\w+$/.test(name) && !/\.temp\.\w+$/.test(name)) {
         if (emitted === name) return
         emitted = name
         onfile(name)
