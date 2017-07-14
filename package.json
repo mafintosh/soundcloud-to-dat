@@ -1,6 +1,6 @@
 {
   "name": "soundcloud-to-dat",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Download all music from a Soundcloud url and put it into a Dat",
   "main": "index.js",
   "dependencies": {
